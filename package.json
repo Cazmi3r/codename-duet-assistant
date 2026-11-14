@@ -1,0 +1,11 @@
+{
+  "name": "codename-duet-assistant",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Key card generator for Codenames Duet with custom grid sizes",
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "serve": "python3 -m http.server 8000 --directory public"
+  }
+}

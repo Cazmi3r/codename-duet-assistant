@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Duet Key Cards</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="Key card generator for Codenames Duet with custom grid sizes.">
+    <meta name="theme-color" content="#14181d">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+</head>
+
+<body>
+    <main>
+        <section id="setup" hidden>
+            <header>
+                <h1>Duet Key Cards</h1>
+                <p class="sub">Generate a two-sided key card, then let your partner scan the QR code to get the other side.</p>
+            </header>
+            <p id="notice" class="notice" role="alert" hidden></p>
+            <div id="fields"></div>
+            <p id="summary" class="summary"></p>
+            <div class="actions">
+                <button id="generate" class="primary" type="button">Generate key card</button>
+                <button id="reset" type="button">Reset to recommended</button>
+                <button id="back" type="button" hidden>Back to current card</button>
+            </div>
+            <p class="footnote">Unofficial fan-made helper. Not affiliated with Czech Games Edition.</p>
+        </section>
+
+        <section id="card" hidden>
+            <header>
+                <h1 id="card-title"></h1>
+                <p id="card-meta" class="sub"></p>
+            </header>
+            <div class="table">
+                <p class="edge">Partner's side of the table</p>
+                <div id="grid" role="img"></div>
+                <p class="edge">Your side of the table</p>
+            </div>
+            <ul class="legend">
+                <li><span class="swatch agent"></span>Agent</li>
+                <li><span class="swatch assassin"></span>Assassin</li>
+                <li><span class="swatch bystander"></span>Bystander</li>
+            </ul>
+            <p class="sub center">This is what happens when your partner guesses each word.</p>
+            <div class="actions">
+                <button id="show-qr" class="primary" type="button">Show QR code for partner</button>
+                <button id="new" type="button">New card</button>
+            </div>
+        </section>
+    </main>
+
+    <dialog id="qr-dialog" aria-labelledby="qr-title">
+        <h2 id="qr-title">Partner scans this</h2>
+        <div id="qr"></div>
+        <p class="sub center">Scanning opens the other side of this key card on their phone.</p>
+        <div class="actions">
+            <button id="share" type="button">Share link instead</button>
+            <button id="close-qr" class="primary" type="button">Done</button>
+        </div>
+    </dialog>
+
+    <script src="vendor/qrcode.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
