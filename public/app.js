@@ -4,6 +4,7 @@ import {
   STANDARD,
   breakdown,
   clampDependents,
+  codeFromHash,
   decode,
   defaultsFor,
   encode,
@@ -86,11 +87,11 @@ function setGame(code, role) {
 
 // A join link looks like https://example.com/#j=<code>.
 function readJoinLink() {
-  const match = /^#j=(.+)$/.exec(location.hash);
-  if (!match) return null;
+  const code = codeFromHash(location.hash);
+  if (code === null) return null;
   // Drop the code from the address bar so a reload keeps showing the stored card.
   history.replaceState(null, '', location.pathname + location.search);
-  return decodeURIComponent(match[1]);
+  return code;
 }
 
 function joinUrl() {

@@ -1,7 +1,21 @@
 # Caddy config for the production server. Lives at /etc/caddy/Caddyfile.
 # Caddy gets and renews the HTTPS certificates for these names automatically.
 
+(security_headers) {
+	header {
+		# Browsers remember to use HTTPS only for this site for a year.
+		Strict-Transport-Security "max-age=31536000"
+		# Only load scripts, styles and data from this site; never allow framing.
+		Content-Security-Policy "default-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+	}
+}
+
 duetkeycard.com {
+	import security_headers
 	root * /var/www/duetkeycard
 	encode zstd gzip
 	file_server
@@ -12,5 +26,6 @@ duetkeycard.com {
 }
 
 www.duetkeycard.com {
+	import security_headers
 	redir https://duetkeycard.com{uri} permanent
 }

@@ -143,6 +143,13 @@ export function encode(settings, seed) {
   return [FORMAT, ...FIELDS.map((f) => settings[f]), (seed >>> 0).toString(36)].join('.');
 }
 
+// The share code in a join link's fragment (#j=<code>), or null if there is none.
+// Codes never need percent-decoding; anything unexpected is rejected by decode().
+export function codeFromHash(hash) {
+  const match = /^#j=(.+)$/.exec(hash);
+  return match ? match[1] : null;
+}
+
 // Returns { settings, seed } or null if the code is not a valid share code.
 export function decode(code) {
   if (typeof code !== 'string') return null;

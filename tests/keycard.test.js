@@ -9,6 +9,7 @@ import {
   STANDARD,
   breakdown,
   clampDependents,
+  codeFromHash,
   decode,
   defaultsFor,
   encode,
@@ -134,4 +135,16 @@ test('bad share codes are rejected', () => {
   assert.equal(decode('1.5.5.9.3.3.1.1.zzzzzzz'), null); // seed out of range
   assert.equal(decode('1.5.5.-9.3.3.1.1.a'), null);
   assert.equal(decode('1.5.5.9.3.3.1.1.A!'), null);
+});
+
+test('join links are parsed without throwing on malformed input', () => {
+  const code = encode(STANDARD, 99);
+  assert.equal(codeFromHash(`#j=${code}`), code);
+  assert.equal(codeFromHash(''), null);
+  assert.equal(codeFromHash('#other'), null);
+  assert.equal(codeFromHash('#j='), null);
+  // Broken percent sequences used to crash the page; now they are just invalid codes.
+  for (const bad of ['#j=%E0%A4%A', '#j=%', '#j=%zz', '#j=<script>alert(1)</script>']) {
+    assert.equal(decode(codeFromHash(bad)), null);
+  }
 });
