@@ -2,6 +2,7 @@
   "name": "codename-duet-assistant",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "description": "Key card generator for Codenames Duet with custom grid sizes",
   "type": "module",
   "scripts": {

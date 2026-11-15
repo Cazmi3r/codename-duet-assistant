@@ -60,3 +60,7 @@ The script reads the destination from `deploy/target` (ignored by git) or the `D
 - The site lives in `/var/www/duetkeycard` on the server. Root and password logins over SSH are disabled.
 
 If you add or rename files under `public/`, update the `ASSETS` list and bump `CACHE` in `public/sw.js` so offline copies stay complete.
+
+## License
+
+[MIT](LICENSE). The bundled QR code library in `public/vendor/` is also MIT licensed and keeps its own copyright notice.
