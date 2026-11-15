@@ -48,7 +48,9 @@ To try the join flow on a real phone, the phone must be able to reach the site o
 
 The site is live at https://duetkeycard.com, served as static files by Caddy on a Linode (Ubuntu 24.04).
 
-To publish changes, run the tests and copy `public/` to the server with:
+Every push to `main` deploys automatically: the GitHub Actions workflow in `.github/workflows/deploy.yml` runs the tests and, if they pass, copies `public/` to the server. It uses a dedicated SSH key that the server restricts to rsync into the site folder. The key, the server address and the server's host key are stored as repository secrets.
+
+To deploy by hand instead, run:
 
 ```sh
 ./deploy/deploy.sh
