@@ -1,0 +1,16 @@
+# Caddy config for the production server. Lives at /etc/caddy/Caddyfile.
+# Caddy gets and renews the HTTPS certificates for these names automatically.
+
+duetkeycard.com {
+	root * /var/www/duetkeycard
+	encode zstd gzip
+	file_server
+
+	# Caddy has no built-in type for this extension.
+	@manifest path *.webmanifest
+	header @manifest Content-Type application/manifest+json
+}
+
+www.duetkeycard.com {
+	redir https://duetkeycard.com{uri} permanent
+}

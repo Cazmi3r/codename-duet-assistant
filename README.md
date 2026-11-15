@@ -46,20 +46,17 @@ To try the join flow on a real phone, the phone must be able to reach the site o
 
 ## Deployment
 
-The site is static files. On the server, Caddy serves the folder and handles HTTPS:
+The site is live at https://duetkeycard.com, served as static files by Caddy on a Linode (Ubuntu 24.04).
 
-```
-yourdomain.com {
-    root * /var/www/codename-duet-assistant
-    file_server
-    encode gzip
-}
-```
-
-Copy the site up with:
+To publish changes, run the tests and copy `public/` to the server with:
 
 ```sh
-rsync -av --delete public/ user@your-server:/var/www/codename-duet-assistant/
+./deploy/deploy.sh
 ```
 
-When changing any file under `public/`, bump `CACHE` in `public/sw.js` if you add or rename files so offline copies stay complete.
+The script reads the destination from `deploy/target` (ignored by git) or the `DEPLOY_TARGET` environment variable, in rsync form such as `user@your-server:/var/www/duetkeycard/`.
+
+- `deploy/Caddyfile` is the server's Caddy config (`/etc/caddy/Caddyfile`). After editing it, copy it to the server and run `sudo systemctl reload caddy`.
+- The site lives in `/var/www/duetkeycard` on the server. Root and password logins over SSH are disabled.
+
+If you add or rename files under `public/`, update the `ASSETS` list and bump `CACHE` in `public/sw.js` so offline copies stay complete.
